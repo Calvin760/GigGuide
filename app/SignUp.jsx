@@ -17,7 +17,7 @@ const SignUp = () => {
   const nameRef = useRef("");
   const passwordRef = useRef("");
   const [loading, setLoading] = useState(false);
-  
+
   const onsubmit = async ()=>{
     if(!emailRef.current || !passwordRef.current){
       Alert.alert('SignUp', "Please fill all the fields!");
@@ -33,7 +33,12 @@ const SignUp = () => {
     const {data: {session}, error} = await supabase.auth.signUp({
       email,
       password,
-    })
+      options: {
+        data: {
+          name
+        }
+      }
+    });
     
     setLoading(false)
 
@@ -65,7 +70,7 @@ const SignUp = () => {
           <Input 
             icon={<FontAwesome5 name="user" size={26} strokeWidth={1.6}/>}
             placeholder='Enter your name'
-            onChangeText={value=> emailRef.current = value}
+            onChangeText={value=> nameRef.current = value}
             />
 
           <Input
