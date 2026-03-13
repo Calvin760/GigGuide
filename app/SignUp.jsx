@@ -42,8 +42,8 @@ const SignUp = () => {
     
     setLoading(false)
 
-    console.log('session:', session);
-    console.log('error:', error);
+    // console.log('session:', session);
+    // console.log('error:', error);
 
     if(error){
       Alert.alert('signup',  error.message);
