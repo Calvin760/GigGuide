@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import { Alert, Button, StyleSheet, Text } from 'react-native';
 import ScreenWrapper from '../../constants/ScreenWrapper';
 import { useAuth } from '../../contexts/AuthContext';
@@ -18,6 +19,9 @@ const Home = () => {
   return (
     <ScreenWrapper>
       <Text>home</Text>
+      <Link href={"/(modals)/booking"}>
+        Bookings
+      </Link>
       <Button title="Logout" onPress={onLogOut} />
     </ScreenWrapper>
   )
