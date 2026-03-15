@@ -1,7 +1,7 @@
 import { AntDesign, FontAwesome5, Octicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { useRef, useState } from 'react'
-import { Alert, Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -17,11 +17,14 @@ const SignUp = () => {
   const nameRef = useRef("");
   const passwordRef = useRef("");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  const onsubmit = async ()=>{
-    if(!emailRef.current || !passwordRef.current){
-      Alert.alert('SignUp', "Please fill all the fields!");
-      return
+  const onsubmit = async () => {
+    setErrorMsg(null);
+
+    if (!emailRef.current || !passwordRef.current || !nameRef.current) {
+      setErrorMsg("Please fill all the fields");
+      return;
     }
 
     let name = nameRef.current.trim();
@@ -30,25 +33,25 @@ const SignUp = () => {
 
     setLoading(true);
 
-    const {data: {session}, error} = await supabase.auth.signUp({
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
-          name
-        }
-      }
+          name,
+        },
+      },
     });
-    
-    setLoading(false)
 
-    // console.log('session:', session);
-    // console.log('error:', error);
+    setLoading(false);
 
-    if(error){
-      Alert.alert('signup',  error.message);
+    if (error) {
+      setErrorMsg(error.message);
     }
-  }
+  };
   return (
     <ScreenWrapper bg='white'>
       <StatusBar style='dark'/>
@@ -86,6 +89,12 @@ const SignUp = () => {
             onChangeText={value => passwordRef.current = value}
           />
 
+          {errorMsg && (
+            <Text style={{ color: "red", marginTop: 8 }}>
+              {errorMsg}
+            </Text>
+          )}
+          
           <Text style={styles.forgotPassword}>
             Forgot password?
           </Text>

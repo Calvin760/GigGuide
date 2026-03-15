@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/listing/[id].tsx", "app/(modals)/booking.jsx", "app/(main)/profile.jsx"  ]
 }

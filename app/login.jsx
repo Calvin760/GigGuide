@@ -1,7 +1,7 @@
 import { AntDesign, Octicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { useRef, useState } from 'react'
-import { Alert, Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
 import BackButton from '../components/BackButton'
 import Button from '../components/Button'
 import Input from '../components/Input'
@@ -15,28 +15,32 @@ const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const [loading, setLoading] = useState(false);
-  const onsubmit = async ()=>{
-    if(!emailRef.current || !passwordRef.current){
-      Alert.alert('Login', "Please fill all the fields!");
-      return
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const onsubmit = async () => {
+    setErrorMsg(null);
+
+    if (!emailRef.current || !passwordRef.current) {
+      setErrorMsg("Please fill all the fields");
+      return;
     }
+
     let email = emailRef.current.trim();
     let password = passwordRef.current.trim();
 
     setLoading(true);
-    const {error} = await supabase.auth.signInWithPassword({
+
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     setLoading(false);
-    
-    console.log('error', error)
-    if(error){
-      Alert.alert('Login', error.message)
-    }
 
-  }
+    if (error) {
+      setErrorMsg(error.message);
+    }
+  };
   return (
     <ScreenWrapper bg='white'>
       <StatusBar style='dark'/>
@@ -67,7 +71,11 @@ const Login = () => {
             secureTextEntry
             onChangeText={value => passwordRef.current = value}
           />
-
+          {errorMsg && (
+            <Text style={{ color: 'red', marginTop: 10 }}>
+              {errorMsg}
+            </Text>
+          )}
           <Text style={styles.forgotPassword}>
             Forgot password?
           </Text>

@@ -1,4 +1,4 @@
-import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
 import React from 'react';
@@ -24,7 +24,7 @@ const Layout = () => {
 
         <Tabs.Screen name="inbox" options={{
             tabBarLabel: "Inbox",
-              tabBarIcon: ({ color, size }) => <AntDesign name='message' color={color} size={size} />
+              tabBarIcon: ({ color, size }) => <Feather name='message-square' color={color} size={size} />
         }} />
 
         <Tabs.Screen name="explore" options={{
@@ -37,9 +37,10 @@ const Layout = () => {
             tabBarIcon: ({ color, size }) => <Ionicons name='person-circle-outline' color={color} size={size} />
         }} />
 
-
     </Tabs>
-  )
+
+  );
+
 }
 
 export default Layout

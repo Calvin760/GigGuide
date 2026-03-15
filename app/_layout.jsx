@@ -1,5 +1,7 @@
+import { Ionicons } from '@expo/vector-icons'
 import { Stack, useRouter } from 'expo-router'
 import { useEffect } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { AuthProvider, useAuth } from '../contexts/AuthContext'
 import { supabase } from '../lib/supabase'
 import { getUserData } from '../services/userService'
@@ -34,14 +36,26 @@ const MainLayout = () => {
       let res = await getUserData(user?.id);
       if(res.success) setUserData(res.data);
   }
-
   return (
-    <Stack 
+    <Stack screenOptions={{ headerShown: false }}>
 
-    screenOptions={{headerShown: false}}
-
-    />
-  )
+      <Stack.Screen
+        name="(modals)/booking"
+        options={{
+          presentation: 'transparentModal',
+          animation: 'fade',
+          headerShown: true,
+          headerTitle: '',
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="close-outline" size={28} />
+            </TouchableOpacity>
+          )
+        }}
+      />
+      <Stack.Screen name="listing/[id]" options={{headerTitle: ''}}/>
+    </Stack>
+  );
 }
 
 export default _layout
