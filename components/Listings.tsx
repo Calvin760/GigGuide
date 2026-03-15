@@ -1,21 +1,12 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react'
+import { Text, View } from 'react-native'
 
 const Listings = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
-        <View>
-        <View style={styles.container}></View>
-        </View>
-    </SafeAreaView>
+    <View>
+      <Text>Listings</Text>
+    </View>
   )
 }
-const styles = StyleSheet.create({
-    container:{
-        backgroundColor: '#fff'
-    }
-})
 
 export default Listings
-
