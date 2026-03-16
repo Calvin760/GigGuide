@@ -1,28 +1,27 @@
-// theme.js
-
 export const theme = {
 
     colors: {
-        primary: "#FF2D6F",      // pink accent (buttons)
-        secondary: "#4FD1FF",    // blue accent
+        primary: "#1D4ED8",       // vivid blue for buttons, accents
+        secondary: "#3B82F6",     // lighter blue for highlights
 
-        background: "#5B1EE5",   // purple background
-        backgroundAlt: "#3C0FB5",
+        background: "#F0F4FF",    // very light blue/gray background
+        backgroundAlt: "#E0EBFF", // slightly darker for cards or headers
 
-        surface: "#FFFFFF",      // cards / UI sections
+        surface: "#FFFFFF",        // white cards / UI sections
 
-        text: "#111111",         // black text
-        textLight: "#444444",
+        text: "#1F2937",           // dark gray, easy on eyes
+        textLight: "#4B5563",      // medium gray
+        textGrey: "#9CA3AF",       // subtle gray
 
-        border: "#E5E5E5",
+        border: "#D1D5DB",         // light gray borders
 
-        error: "#FF4D6D",
-        success: "#22C55E",
-        warning: "#F59E0B",
+        error: "#EF4444",          // red
+        success: "#10B981",        // green
+        warning: "#F59E0B",        // yellow
 
-        highlight: "#FF5C8A",
+        highlight: "#2563EB",      // bright blue accent
 
-        dark: "#1A0A5E",
+        dark: "#1E3A8A",           // deep blue
         white: "#FFFFFF"
     },
 
@@ -42,64 +41,57 @@ export const theme = {
     },
 
     fonts: {
-        regular: "System",
-        medium: "System",
-        semibold: "System",
-        bold: "System"
-    },
-
-    fontWeights: {
-        regular: "400",
-        medium: "500",
-        semibold: "600",
-        bold: "700"
+        regular: "inter",
+        medium: "inter-md",
+        semibold: "inter-sb",
+        bold: "inter-b",
     },
 
     typography: {
         title: {
             fontSize: 28,
-            fontWeight: "700",
-            color: "#111111"
+            fontFamily: "inter-b",
+            color: "#1F2937"
         },
 
         subtitle: {
             fontSize: 18,
-            fontWeight: "600",
-            color: "#111111"
+            fontFamily: "inter-sb",
+            color: "#1F2937"
         },
 
         body: {
             fontSize: 16,
-            fontWeight: "400",
-            color: "#222222"
+            fontFamily: "inter",
+            color: "#4B5563"
         },
 
         caption: {
             fontSize: 13,
-            fontWeight: "400",
-            color: "#555555"
+            fontFamily: "inter-md",
+            color: "#6B7280"
         }
     },
 
     shadows: {
         small: {
-            shadowColor: "#1A0A5E",
-            shadowOpacity: 0.2,
+            shadowColor: "#1D4ED8",  // subtle blue shadow
+            shadowOpacity: 0.15,
             shadowRadius: 6,
             elevation: 3
         },
 
         card: {
-            shadowColor: "#1A0A5E",
-            shadowOpacity: 0.25,
-            shadowRadius: 10,
+            shadowColor: "#1D4ED8",
+            shadowOpacity: 0.2,
+            shadowRadius: 12,
             elevation: 6
         },
 
         large: {
-            shadowColor: "#1A0A5E",
-            shadowOpacity: 0.35,
-            shadowRadius: 18,
+            shadowColor: "#1D4ED8",
+            shadowOpacity: 0.3,
+            shadowRadius: 20,
             elevation: 10
         }
     }

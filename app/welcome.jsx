@@ -14,10 +14,10 @@ const Welcome = () => {
         <View style={styles.container}>
 
             {/* welcome Image*/}
-            <Image style={styles.welcomeImage} resizeMode='contain' source={require('../assets/images/welcome.png')}/>
+            <Image style={styles.welcomeImage} resizeMode='contain' source={require('../assets/images/GigGuide.png')}/>
 
             {/* title */}
-            <View style={{gap:20}}>
+            <View style={{ marginTop: -hp(20), gap: 12 }}>
                   <Text style={styles.title}>GigGuide</Text>
                   <Text style={styles.punchline}>
                       Discover New Opportunities, Book Events, and Manage Your DJ Gigs Seamlessly.
@@ -64,12 +64,13 @@ const styles = StyleSheet.create({
         height: hp(30),
         width: wp(100),
         alignSelf: 'center',
+        marginTop: hp(15)
     },
     title: {
         color: theme.colors.text,
         fontSize: hp(4),
         textAlign: 'center',
-        fontWeight: theme.fontWeights.bold,
+        fontWeight: theme.typography.title,
     },
     punchline: {
         textAlign: 'center',

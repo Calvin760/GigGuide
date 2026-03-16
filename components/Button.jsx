@@ -1,4 +1,3 @@
-import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { hp } from '../helpers/common'
 import Loading from './Loading'
@@ -48,6 +47,6 @@ const styles = StyleSheet.create({
     text:{
         fontSize: hp(2.5),
         color: 'white',
-        fontWeight: theme.fontWeights.bold
+        fontWeight: theme.typography.title
     }
 })

@@ -9,7 +9,7 @@ const Layout = () => {
     <Tabs screenOptions={{
         tabBarActiveTintColor: theme.colors.primary,
         tabBarLabelStyle: {
-            fontFamily: theme.fontWeights.bold,
+            fontFamily: theme.typography.title.fontFamily,
         } 
     }}>
         <Tabs.Screen name="home" options={{

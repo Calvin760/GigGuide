@@ -109,7 +109,7 @@ const SignUp = () => {
             Already have an account.
           </Text>
           <Pressable onPress={() => router.push('login')}>
-            <Text style={[styles.footerText, { color: theme.colors.primary }, {fontWeight: theme.fontWeights.semibold}]} >
+            <Text style={[styles.footerText, { color: theme.colors.primary }, { fontWeight: theme.typography.subtitle }]} >
               Login
             </Text>
           </Pressable>
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   welcomeText:{
     fontSize: hp(4),
-    fontWeight: theme.fontWeights.bold,
+    fontWeight: theme.typography.title,
     color: theme.colors.text,
 
   },
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   forgotPassword:{
     textAlign: 'right',
-    fontWeight: theme.fontWeights.semibold,
+    fontWeight: theme.typography.subtitle,
     color: theme.colors.text,
   },
   footer:{
