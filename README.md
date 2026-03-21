@@ -27,26 +27,26 @@ A full-stack DJ booking platform that connects DJs with event promoters.
 ## 📸 Screenshots
 
 ### 🔐 Login Page
-![Login](./screenshots/login.png)
+![Login](./screenshots/login.PNG)
 
 ### 🔐 SignUp Page
-![Login](./screenshots/signup.png)
+![SignUp](./screenshots/signup.PNG)
 
 ### 📊 Dashboard
-![Dashboard](./screenshots/home.png)
+![Dashboard](./screenshots/home.PNG)
 
 ### ➕ Create Gig
-![Create Gig](./screenshots/create-gig.png)
+![Create Gig](./screenshots/create-gig.PNG)
 
 ### 📩 Applications
-![Applications](./screenshots/applications.png)
+![Applications](./screenshots/applications.PNG)
 
 ---
 
 ## ⚙️ Installation
 
 ```bash
-git clone https://github.com/Calvin760/proximabook.git
-cd proximabook
+git clone https://github.com/Calvin760/GigGuide.git
+cd GigGuide
 npm install
 npm run dev
