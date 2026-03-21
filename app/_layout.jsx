@@ -70,11 +70,12 @@ const MainLayout = () => {
         options={{
           headerShown: true,
           headerTitle: '',
-          // headerLeft: () => (
-          //   <TouchableOpacity onPress={() => router.back()}>
-          //     <Ionicons name="arrow-back" size={24} />
-          //   </TouchableOpacity>
-          // ),
+          headerTransparent: true,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="chevron-back" size={24} color={'#1D4ED8'}/>
+            </TouchableOpacity>
+          ),
         }}
       />
     </Stack>

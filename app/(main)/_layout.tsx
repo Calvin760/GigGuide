@@ -18,8 +18,8 @@ const Layout = () => {
         }} />
 
         <Tabs.Screen name="wishlists" options={{
-              tabBarLabel: "Wishlists",
-            tabBarIcon: ({ color, size }) => <Ionicons name='heart-outline' color={color} size={size} />
+              tabBarLabel: "My Gigs",
+            tabBarIcon: ({ color, size }) => <Ionicons name='library-outline' color={color} size={size} />
         }} />
 
         <Tabs.Screen name="inbox" options={{
@@ -27,10 +27,10 @@ const Layout = () => {
               tabBarIcon: ({ color, size }) => <Feather name='message-square' color={color} size={size} />
         }} />
 
-        <Tabs.Screen name="explore" options={{
+        {/* <Tabs.Screen name="explore" options={{
             tabBarLabel: "Explore",
             tabBarIcon: ({ color, size }) => <Ionicons name='search' color={color} size={size} />
-        }} />
+        }} /> */}
 
         <Tabs.Screen name="profile" options={{
             tabBarLabel: "Profile",
