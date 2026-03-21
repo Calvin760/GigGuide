@@ -27,19 +27,19 @@ A full-stack DJ booking platform that connects DJs with event promoters.
 ## 📸 Screenshots
 
 ### 🔐 Login Page
-<img src="./screenshots/login.PNG" width="600"/>
+<img src="./screenshots/login.PNG" width="200"/>
 
 ### 🔐 SignUp Page
-<img src="./screenshots/signup.PNG" width="600"/>
+<img src="./screenshots/signup.PNG" width="200"/>
 
 ### 📊 Dashboard
-<img src="./screenshots/home.PNG" width="600"/>
+<img src="./screenshots/home.PNG" width="200"/>
 
 ### ➕ Create Gig
-<img src="./screenshots/create-gig.PNG" width="600"/>
+<img src="./screenshots/create-gig.PNG" width="200"/>
 
 ### 📩 Applications
-<img src="./screenshots/application.PNG" width="600"/>
+<img src="./screenshots/application.PNG" width="200"/>
 
 ---
 
