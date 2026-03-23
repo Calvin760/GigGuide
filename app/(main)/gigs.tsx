@@ -1,5 +1,5 @@
 import { theme } from '@/components/theme';
-import ScreenWrapper from '@/constants/ScreenWrapper';
+import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 
 const Page = () => {
@@ -61,14 +62,14 @@ const Page = () => {
   );
 
   return (
-    <ScreenWrapper bg="white">
+    <SafeAreaView style={defaultStyles.container}>
 
       {/* Header */}
-      <View style={styles.header}>
+      <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>My Gigs</Text>
 
         <TouchableOpacity onPress={() => router.push('/create-gig')}>
-          <Ionicons name="add-circle-outline" size={26} color={theme.colors.primary} />
+          <Ionicons name="add-circle-outline" size={28} color={theme.colors.primary} />
         </TouchableOpacity>
       </View>
 
@@ -94,7 +95,7 @@ const Page = () => {
         />
       )}
 
-    </ScreenWrapper>
+    </SafeAreaView>
   );
 };
 
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '700',
   },
 
@@ -150,7 +151,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
   },
-
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 24,
+  },
   emptyText: {
     color: '#999',
   },

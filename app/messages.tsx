@@ -1,7 +1,7 @@
 import { theme } from '@/components/theme';
 import ScreenWrapper from '@/constants/ScreenWrapper';
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import {
     FlatList,
@@ -16,13 +16,13 @@ import {
 } from 'react-native';
 
 const MessagesPage = () => {
+    const router = useRouter();
+
     const { hostName } = useLocalSearchParams<{
         hostName: string;
     }>();
 
-    // 👉 Replace with real image later from Supabase
-    const avatar =
-        'https://i.pravatar.cc/150?img=12';
+    const avatar = 'https://i.pravatar.cc/150?img=12';
 
     const flatListRef = useRef<FlatList>(null);
 
@@ -68,7 +68,6 @@ const MessagesPage = () => {
                     { justifyContent: isMe ? 'flex-end' : 'flex-start' },
                 ]}
             >
-                {/* Avatar (only for THEM like Facebook) */}
                 {!isMe && (
                     <Image source={{ uri: avatar }} style={styles.avatar} />
                 )}
@@ -97,11 +96,17 @@ const MessagesPage = () => {
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                keyboardVerticalOffset={80} // 🔥 lifts input up
+                keyboardVerticalOffset={80}
             >
-                {/* Header with avatar */}
+                {/* ✅ Header with Back Button */}
                 <View style={styles.header}>
+
+                    <TouchableOpacity onPress={() => router.back()}>
+                        <Ionicons name="chevron-back" size={24} />
+                    </TouchableOpacity>
+
                     <Image source={{ uri: avatar }} style={styles.headerAvatar} />
+
                     <View>
                         <Text style={styles.headerTitle}>{hostName}</Text>
                         <Text style={styles.subText}>Active now</Text>
@@ -116,7 +121,7 @@ const MessagesPage = () => {
                     renderItem={renderItem}
                     contentContainerStyle={{
                         padding: 16,
-                        paddingBottom: 100, // 🔥 space for input
+                        paddingBottom: 100,
                     }}
                     showsVerticalScrollIndicator={false}
                 />
@@ -224,7 +229,6 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         paddingHorizontal: 12,
         paddingVertical: 20,
-
     },
 
     input: {

@@ -1,15 +1,14 @@
-import ScreenWrapper from '@/constants/ScreenWrapper';
+import { defaultStyles } from '@/constants/Styles';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
   FlatList,
-  Image,
-  StyleSheet,
+  Image, StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 const Page = () => {
   const router = useRouter();
 
@@ -68,19 +67,25 @@ const Page = () => {
   };
 
   return (
-    <ScreenWrapper bg="white">
-      <View style={styles.container}>
+    <SafeAreaView style={defaultStyles.container}>
+
+      <View style={styles.headerContainer}>
         <Text style={styles.title}>Inbox</Text>
 
+
+      </View>
+      <View style={styles.headerContainer}>
         <FlatList
           data={conversations}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 80 }}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
+
       </View>
-    </ScreenWrapper>
+
+    </SafeAreaView>
   );
 };
 
@@ -92,14 +97,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   headerContainer: {
-    flexDirection: 'row',
+    
     justifyContent: 'space-between',
     padding: 24,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    // marginVertical: 16,
+    fontSize: 24,
+    fontWeight: '700',
   },
 
   row: {

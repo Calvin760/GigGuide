@@ -7,13 +7,13 @@ import {
     Alert,
     Button,
     Image,
-    SafeAreaView,
     StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 
 const Page = () => {
@@ -111,7 +111,7 @@ const Page = () => {
         <SafeAreaView style={defaultStyles.container}>
 
             <View style={styles.headerContainer}>
-                <Text style={styles.header}>DJ Profile</Text>
+                <Text style={styles.header}>Profile</Text>
                 <Ionicons name="notifications-outline" size={26} />
             </View>
 
