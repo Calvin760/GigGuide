@@ -2,6 +2,7 @@ import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import 'react-native-gesture-handler';
 import { theme } from '../../components/theme';
 
 const Layout = () => {
@@ -29,10 +30,6 @@ const Layout = () => {
               tabBarIcon: ({ color, size }) => <Feather name='message-square' color={color} size={size} />
         }} />
 
-        {/* <Tabs.Screen name="explore" options={{
-            tabBarLabel: "Explore",
-            tabBarIcon: ({ color, size }) => <Ionicons name='search' color={color} size={size} />
-        }} /> */}
 
         <Tabs.Screen name="profile" options={{
             tabBarLabel: "Profile",

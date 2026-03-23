@@ -1,5 +1,5 @@
 import { places } from '@/assets/data/places';
-import Colors from '@/constants/Colors';
+import { theme } from '@/components/theme';
 import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
@@ -8,9 +8,8 @@ import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import Animated, { FadeIn, FadeOut, SlideInDown } from 'react-native-reanimated';
-// @ts-ignore
 import DatePicker from 'react-native-modern-datepicker';
+import Animated, { FadeIn, FadeOut, SlideInDown } from 'react-native-reanimated';
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -69,11 +68,11 @@ const Page = () => {
                 {openCard == 0 && (
                     <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.cardBody}>
                         <View style={styles.searchSection}>
-                            <Ionicons style={styles.searchIcon} name="ios-search" size={20} color="#000" />
+                            <Ionicons style={styles.searchIcon} name="search" size={20} color="#000" />
                             <TextInput
                                 style={styles.inputField}
                                 placeholder="Search destinations"
-                                placeholderTextColor={Colors.grey}
+                                placeholderTextColor={theme.colors.textGrey}
                             />
                         </View>
 
@@ -116,7 +115,7 @@ const Page = () => {
                             options={{
                                 defaultFont: 'mon',
                                 headerFont: 'mon-sb',
-                                mainColor: Colors.primary,
+                                mainColor: theme.colors.primary,
                                 borderColor: 'transparent',
                             }}
                             current={today}
@@ -153,7 +152,7 @@ const Page = () => {
                                 ]}>
                                 <View>
                                     <Text style={{ fontFamily: 'mon-sb', fontSize: 14 }}>{item.name}</Text>
-                                    <Text style={{ fontFamily: 'mon', fontSize: 14, color: Colors.grey }}>
+                                    <Text style={{ fontFamily: 'mon', fontSize: 14, color: theme.colors.textGrey }}>
                                         {item.text}
                                     </Text>
                                 </View>
@@ -176,7 +175,7 @@ const Page = () => {
                                         <Ionicons
                                             name="remove-circle-outline"
                                             size={26}
-                                            color={groups[index].count > 0 ? Colors.grey : '#cdcdcd'}
+                                            color={groups[index].count > 0 ? theme.colors.textGrey : '#cdcdcd'}
                                         />
                                     </TouchableOpacity>
                                     <Text
@@ -194,7 +193,7 @@ const Page = () => {
                                             newGroups[index].count++;
                                             setGroups(newGroups);
                                         }}>
-                                        <Ionicons name="add-circle-outline" size={26} color={Colors.grey} />
+                                        <Ionicons name="add-circle-outline" size={26} color={theme.colors.textGrey} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -224,7 +223,7 @@ const Page = () => {
                         style={[defaultStyles.btn, { paddingRight: 20, paddingLeft: 50 }]}
                         onPress={() => router.back()}>
                         <Ionicons
-                            name="search-outline"
+                            name="search"
                             size={24}
                             style={defaultStyles.btnIcon}
                             color={'#fff'}
@@ -300,7 +299,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     placeSelected: {
-        borderColor: Colors.grey,
+        borderColor: theme.colors.textGrey,
         borderWidth: 2,
         borderRadius: 10,
         width: 100,
@@ -309,12 +308,12 @@ const styles = StyleSheet.create({
     previewText: {
         fontFamily: 'mon-sb',
         fontSize: 14,
-        color: Colors.grey,
+        color: theme.colors.textGrey,
     },
     previewdData: {
         fontFamily: 'mon-sb',
         fontSize: 14,
-        color: Colors.dark,
+        color: theme.colors.dark,
     },
 
     guestItem: {
@@ -325,7 +324,7 @@ const styles = StyleSheet.create({
     },
     itemBorder: {
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: Colors.grey,
+        borderBottomColor: theme.colors.textGrey,
     },
 });
 export default Page;

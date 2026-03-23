@@ -1,13 +1,18 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from "expo-font";
-import { Stack, useRouter } from 'expo-router';
+import { SplashScreen, Stack, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import ModalHeaderText from '../components/ModalHeaderText';
+import { theme } from '../components/theme';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { getUserData } from '../services/userService';
 
 const _layout = () => {
+
+  SplashScreen.preventAutoHideAsync();
 
   const [fontsLoaded] = useFonts({
     "inter": require("../assets/fonts/Inter-Regular.ttf"),
@@ -50,19 +55,28 @@ const MainLayout = () => {
   };
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="(modals)/booking"
         options={{
           presentation: 'transparentModal',
           animation: 'fade',
-          headerShown: true,
-          headerTitle: '',
+          headerTransparent: true,
+          headerTitle: (props) => <ModalHeaderText />,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
-              <Ionicons name="close-outline" size={28} />
+            <TouchableOpacity
+              onPress={() => router.back()}
+              style={{
+                backgroundColor: '#fff',
+                borderColor: theme.colors.textGrey,
+                borderRadius: 20,
+                borderWidth: 1,
+                padding: 4,
+              }}>
+              <Ionicons name="close-outline" size={22} />
             </TouchableOpacity>
-          )
+          ),
         }}
       />
       <Stack.Screen
@@ -80,6 +94,7 @@ const MainLayout = () => {
       />
     
     </Stack>
+    </GestureHandlerRootView>
   );
 };
 
