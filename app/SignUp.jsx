@@ -19,39 +19,44 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const onsubmit = async () => {
-    setErrorMsg(null);
+const onsubmit = async () => {
+  setErrorMsg(null);
 
-    if (!emailRef.current || !passwordRef.current || !nameRef.current) {
-      setErrorMsg("Please fill all the fields");
-      return;
+  if (!emailRef.current || !passwordRef.current || !nameRef.current) {
+    setErrorMsg("Please fill all the fields");
+    return;
+  }
+
+  const name = nameRef.current.trim();
+  const email = emailRef.current.trim();
+  const password = passwordRef.current.trim();
+
+  setLoading(true);
+
+  const { data: {session}, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options:{
+      data:{
+        name
+      }
     }
+  });
 
-    let name = nameRef.current.trim();
-    let email = emailRef.current.trim();
-    let password = passwordRef.current.trim();
+  console.log('session: ', session)
+  console.log('error: ', error)
 
-    setLoading(true);
-
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          name,
-        },
-      },
-    });
-
+  if (error) {
     setLoading(false);
+    setErrorMsg(error.message);
+    return;
+  }
 
-    if (error) {
-      setErrorMsg(error.message);
-    }
-  };
+  setLoading(false);
+
+  // ✅ Navigate after success
+  router.replace('/role-selection');
+};
   return (
     <ScreenWrapper bg='white'>
       <StatusBar style='dark'/>

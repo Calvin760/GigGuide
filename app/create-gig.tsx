@@ -1,5 +1,7 @@
 import { theme } from '@/components/theme';
 import ScreenWrapper from '@/constants/ScreenWrapper';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/lib/supabase';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
@@ -17,6 +19,9 @@ import {
 
 const Page = () => {
 
+  const router = useRouter();
+  const { user } = useAuth();
+
   const [image, setImage] = useState('');
   const [title, setTitle] = useState('');
   const [budget, setBudget] = useState('');
@@ -24,7 +29,9 @@ const Page = () => {
   const [eventType, setEventType] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  // 📸 Pick Image
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -36,37 +43,91 @@ const Page = () => {
     }
   };
 
-  const onPublish = () => {
-    if (!title || !budget || !genre) {
+  // 🚀 Publish Gig
+  const onPublish = async () => {
+    if (!title || !budget || !genre || !location) {
       Alert.alert('Missing fields', 'Please fill all required fields');
       return;
     }
 
-    // 🔥 Later connect to Supabase
-    console.log({
-      title,
-      budget,
-      genre,
-      eventType,
-      description,
-      location,
-      image,
-    });
+    setLoading(true);
 
-    Alert.alert('Success', 'Gig posted!');
+    try {
+      // 1️⃣ Get venue
+      const { data: venue, error: venueError } = await supabase
+        .from('venues')
+        .select('id')
+        .eq('userId', user.id)
+        .single();
+
+      if (venueError || !venue) {
+        throw new Error('You must create a venue first');
+      }
+
+      let imageUrl = null;
+
+      // 2️⃣ Upload image
+      if (image) {
+        const fileName = `${user.id}-${Date.now()}.jpg`;
+
+        const response = await fetch(image);
+        const blob = await response.blob();
+
+        const { error: uploadError } = await supabase.storage
+          .from('gigs')
+          .upload(fileName, blob);
+
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage
+          .from('gigs')
+          .getPublicUrl(fileName);
+
+        imageUrl = data.publicUrl;
+      }
+
+      // 3️⃣ Insert gig
+      const { error: insertError } = await supabase.from('gigs').insert({
+        venue_id: venue.id,
+        title: title,
+        description: description,
+        genre: genre,
+        payment: Number(budget),
+        event_date: new Date().toISOString().split('T')[0],
+        start_time: '18:00',
+        end_time: '23:00',
+        // status: 'open',
+        // image: imageUrl,
+        // location: location,
+        // event_type: eventType,
+      });
+
+      if (insertError) throw insertError;
+
+      Alert.alert('Success', 'Gig posted!');
+      router.back();
+
+    } catch (error: any) {
+      console.log(error);
+      Alert.alert('Error', error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <ScreenWrapper bg="white">
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="close" size={26} onPress={() => router.back()} />
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="close" size={26} />
         </TouchableOpacity>
 
         <Text style={styles.headerTitle}>New Gig</Text>
 
-        <TouchableOpacity onPress={onPublish}>
-          <Text style={styles.publish}>Publish</Text>
+        <TouchableOpacity onPress={onPublish} disabled={loading}>
+          <Text style={styles.publish}>
+            {loading ? 'Publishing...' : 'Publish'}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -100,7 +161,7 @@ const Page = () => {
         <View style={styles.form}>
 
           <TextInput
-            placeholder="Event Title (e.g. Club Night DJ Needed)"
+            placeholder="Event Title"
             value={title}
             onChangeText={setTitle}
             style={styles.input}
@@ -115,14 +176,14 @@ const Page = () => {
           />
 
           <TextInput
-            placeholder="Genre Needed (Amapiano, Hip Hop...)"
+            placeholder="Genre Needed"
             value={genre}
             onChangeText={setGenre}
             style={styles.input}
           />
 
           <TextInput
-            placeholder="Event Type (Club, Wedding, Festival)"
+            placeholder="Event Type"
             value={eventType}
             onChangeText={setEventType}
             style={styles.input}
@@ -136,7 +197,7 @@ const Page = () => {
           />
 
           <TextInput
-            placeholder="Description (optional)"
+            placeholder="Description"
             value={description}
             onChangeText={setDescription}
             style={[styles.input, { height: 100 }]}

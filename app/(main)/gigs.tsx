@@ -24,17 +24,28 @@ const Page = () => {
   }, []);
 
   const getMyGigs = async () => {
-
     const { data: { user } } = await supabase.auth.getUser();
-
     if (!user) return;
 
     setUser(user);
 
-    const { data, error } = await supabase
+    // Get venue
+    const { data: venue, error: venueError } = await supabase
+      .from('venues')
+      .select('id')
+      .eq('userId', user.id)
+      .single();
+
+    if (venueError || !venue) {
+      console.log('No venue found');
+      return;
+    }
+
+    // Get gigs
+    const { data: gigs, error } = await supabase
       .from('gigs')
       .select('*')
-      .eq('created_by', user.id)
+      .eq('venue_id', venue.id)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -42,7 +53,7 @@ const Page = () => {
       return;
     }
 
-    setGigs(data);
+    setGigs(gigs);
   };
 
   const renderItem = ({ item }) => (
